@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Senior Advisers Agency</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+
+        header {
+            background-color: #007bff; /* Navbar background color */
+        }
+
+        header .navbar-brand {
+            color: #fff; /* Navbar brand text color */
+            
+        }
+
+        header .navbar-nav .nav-link {
+            color: #fff; /* Navbar link text color */
+        }
+
+        .jumbotron {
+            background-color: #fff; /* White background for jumbotron */
+            margin-top: 50px; /* Add space between navbar and jumbotron */
+            padding: 50px; /* Add padding to jumbotron */
+            border-radius: 10px; /* Rounded corners for jumbotron */
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+        }
+
+        h1, h3, p {
+            color: #333; /* Text color */
+        }
+
+        .service {
+            background-color: #fff; /* White background for service cards */
+            border-radius: 10px; /* Rounded corners for service cards */
+            box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+            padding: 20px; /* Add padding to service cards */
+            margin-bottom: 30px; /* Add space between service cards */
+            transition: all 0.3s ease; /* Add transition effect */
+        }
+
+        .service:hover {
+            transform: translateY(-5px); /* Move card up slightly on hover */
+            box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1); /* Add larger shadow on hover */
+        }
+        .footer {
+            background-color: #333;
+            color: #f0ecec;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        .footer p{
+            color: rgb(255, 255, 255);
+        }
+        .footer a:hover {
+            color: lightblue;
+            
+        }
+        .widget {
+        position: fixed;
+        bottom: 30px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 9999;
+    }
+
+    /* Form Styling */
+    #form1234 {
+    position: fixed;
+    bottom: 95px;
+    right: 20px;
+    width: 350px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    z-index: 2;
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+#form1234.visible {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+button[type="submit"] {
+        width: 100%;
+    }
+
+
+@media only screen and (max-width: 768px) {
+    .widget {
+        display: inline-block; /* Display the chat widget on mobile */
+    }
+
+    #form1234 {
+        width: 100%;
+        right: 0;
+        left: 0;
+        bottom: 175px;
+        padding: 10px;
+        max-height: 100vh;
+        overflow-y: scroll;
+    }
+    button[type="submit"] {
+        width: 100%;
+    }
+
+    
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    
+}
+
+/* Mobile styles for smaller devices */
+@media only screen and (max-width: 480px) {
+    #form1234 {
+        width: 100%;
+        right: 0;
+        left: 0;
+        padding: 10px;
+        max-height: calc(100vh - 100px); /* Adjusted to allow proper display and scrolling */
+        overflow-y: auto; /* Changed to auto for automatic scrolling if content exceeds the height */
+        bottom: 100px; /* Adjusted for better position */
+        z-index: 5001; /* Ensures the form appears above the widget */
+        position: fixed; /* Added to fix the form position */
+        background-color: #f9f9f9; /* Added to enhance form visibility */
+    }
+
+    .widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 5000;
+    }
+    button[type="submit"] {
+        width: 100%;
+    }
+  
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+}
+@keyframes rotateIn {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateOut {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.rotate-in {
+    animation: rotateIn 1s forwards;
+}
+
+.rotate-out {
+    animation: rotateOut 1s forwards;
+}
+
+              
+.close-btn {
+    display: none;
+}
+  
+    </style>
+</head>
+<body>
+    <div class="widget" id="widgetContainer" onclick="toggleForm()">
+        <i id="iconElement" class="fa-solid fa-message"></i> <!-- Default chat icon -->
+    </div>
+    <form id="form1234" action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+        <div class="close-btn" onclick="closeForm()"><i class="fa-solid fa-xmark"></i></div>
+        <h2>Contact Us!</h2>
+        <h3></h3>
+        <input type="hidden" name="access_key" value="21c62fbd-fbc0-4d5f-ab20-120f3c950857">
+        <div class="form-group">
+            <label for="name"> <i class="fa-solid fa-signature"></i> Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label for="email"><i class="fa-solid fa-envelope"></i> Email address:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required >
+        </div>
+        <div class="form-group">
+            <label for="phone"><i class="fa-solid fa-phone"></i> Phone Number:</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your Phone Number" required>
+        </div>
+        
+        <script>
+            // Add event listener to the input for real-time validation
+            document.getElementById('phone').addEventListener('input', function() {
+                // Remove any non-numeric characters except spaces, plus, and minus signs
+                this.value = this.value.replace(/[^0-9\s\-+]/g, '');
+            });
+        </script>
+        <div class="form-group">
+            <label for="message"><i class="fa-solid fa-message"></i> Message:</label>
+            <textarea class="form-control" id="message" name="message" rows="5"  
+            placeholder="Enter your message" required></textarea>
+        </div>
+        <div class="h-captcha" data-captcha="true"></div>
+        <div>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-up-from-bracket"></i> Send</button>
+    </div>
+    <input type="hidden" name="redirect" value="https://testruns123.github.io/testingen/yessubmitcopy.html">
+    <script>
+        const form = document.getElementById('form1234');
+        
+        form.addEventListener('submit', function(e) {
+        
+            const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
+        
+            if (!hCaptcha) {
+                e.preventDefault();
+                Swal.fire({
+             title: "Please fill out Captcha",
+             text: "We cannot allow you to submit without verifying you are human!",
+            icon: "warning"
+                        });
+                return
+            }
+        });
+        </script>
+        <input type="hidden" name="from_name" value="Quest-Senior-Solutions-Contact-Form">
+        <input type="hidden" name="subject" value="Contact Form Submmision">
+        <script>
+            window.onload = function() {
+                // Reset the form fields when the page loads
+                document.getElementById("form1234").reset();
+            };
+        </script>
+    </form>
+    <script src="https://web3forms.com/client/script.js" async defer></script>
+    
+    <!-- JavaScript Functionality -->
+    <script>
+        function toggleForm() {
+        var form = document.getElementById('form1234');
+        var icon = document.getElementById('iconElement');
+        var container = document.getElementById('widgetContainer');
+    
+        container.classList.toggle('form-visible');
+        form.classList.toggle('visible');
+    
+        // Check the current icon class to toggle between the chat icon and the "x" icon
+        if (icon.classList.contains('fa-message')) {
+            icon.classList.remove('fa-message');
+            icon.classList.add('fa-xmark', 'rotate-in');
+        } else {
+            icon.classList.remove('fa-xmark', 'rotate-in');
+            icon.classList.add('fa-message', 'rotate-out');
+            setTimeout(() => {
+                icon.classList.remove('rotate-out');
+            }, 1000); // Adjust the time based on the duration of the rotate-out animation
+        }
+    }
+    
+    function closeForm() {
+        var form = document.getElementById('form1234');
+        var icon = document.getElementById('iconElement');
+        var container = document.getElementById('widgetContainer');
+    
+        container.classList.remove('form-visible');
+        form.classList.remove('visible');
+    
+        // Toggle the icon back to the chat icon when the form is closed
+        if (icon.classList.contains('fa-xmark')) {
+            icon.classList.remove('fa-xmark', 'rotate-in');
+            icon.classList.add('fa-message', 'rotate-out');
+            setTimeout(() => {
+                icon.classList.remove('rotate-out');
+            }, 1000); // Adjust the time based on the duration of the rotate-out animation
+        }
+    }
+        </script>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-solid fa-house"></i> Quest Senior Solutions
+            </a>
+            
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                         <a  class="nav-link" href="About.html" > <i class="fa-solid fa-address-card"></i> About Us</a> 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Services.html"> <i class="fa-solid fa-bell-concierge"></i> Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.html"><i class="fa-solid fa-address-book"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="team.html"><i class="fa-solid fa-people-group"></i> Team</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <!-- Jumbotron for main content -->
+        <div class="jumbotron">
+            <h1 class="text-center">Our Services</h1>
+            <p class="lead text-center">Discover the range of Services we offer to help seniors lead fulfilling lives.</p>
+        </div>
+
+        <!-- Services Section -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="service">
+                    <h3>Financial Planning</h3>
+                    <p>We provide personalized financial planning Services tailored to seniors' unique needs and goals.</p>
+                </div>
+                <div class="service">
+                    <h3>Healthcare Advisory</h3>
+                    <p>We offer comprehensive healthcare advisory Services to help seniors navigate their healthcare options.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="service">
+                    <h3>Lifestyle Assistance</h3>
+                    <p>We assist seniors with lifestyle management, including recreational activities, social events, and more.</p>
+                </div>
+                <div class="service">
+                    <h3>Elderly Care Coordination</h3>
+                    <p>We coordinate elderly care Services, ensuring seniors receive the support and assistance they need.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/4e964d603e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+<footer class="footer">
+    <div>
+        <a href="index.html">Home</a>
+        <a href="About.html">About Us</a>
+        <a href="Services.html">Services</a>
+        <a href="Contact.html">Contact</a>
+    </div>
+    <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
+</footer>
+</html>

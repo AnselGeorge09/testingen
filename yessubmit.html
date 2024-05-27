@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    
+
+    <script>
+        // Trigger the SweetAlert upon page load
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "The Message was submitted successfully!",
+                text: "We will get back with you as soon as we can! Click the OK to go back.",
+                icon: "success"
+            }).then((result) => {
+                // Handle the "Wow" button click to redirect back to the website
+                if (result.isConfirmed) {
+                    window.location.href = "Contact.html"; // Replace with your website URL
+                }
+            });
+        });
+    </script>
+</body>
+</html>
